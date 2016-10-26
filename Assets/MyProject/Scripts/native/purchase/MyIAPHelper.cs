@@ -164,34 +164,34 @@ public class MyIAPHelper : MonoBehaviour, IStoreListener {
 
 		#if RECEIPT_VALIDATION
 		if (Application.platform == RuntimePlatform.Android || 
-		Application.platform == RuntimePlatform.IPhonePlayer ||
-		Application.platform == RuntimePlatform.OSXPlayer) {
-		try {
-		var result = validator.Validate(e.purchasedProduct.receipt);
-		SgpLog.D("Receipt is valid. Contents:");
-		foreach (IPurchaseReceipt productReceipt in result) {
-		SgpLog.D(productReceipt.productID);
-		SgpLog.D(productReceipt.purchaseDate);
-		SgpLog.D(productReceipt.transactionID);
+			Application.platform == RuntimePlatform.IPhonePlayer ||
+			Application.platform == RuntimePlatform.OSXPlayer) {
+			try {
+				var result = validator.Validate(e.purchasedProduct.receipt);
+				MyLog.D("Receipt is valid. Contents:");
+				foreach (IPurchaseReceipt productReceipt in result) {
+				MyLog.D(productReceipt.productID);
+				MyLog.D(productReceipt.purchaseDate);
+				MyLog.D(productReceipt.transactionID);
 
-		GooglePlayReceipt google = productReceipt as GooglePlayReceipt;
-		if (null != google) {
-		SgpLog.D(google.purchaseState);
-		SgpLog.D(google.purchaseToken);
-		}
+				GooglePlayReceipt google = productReceipt as GooglePlayReceipt;
+				if (null != google) {
+					MyLog.D(google.purchaseState);
+					MyLog.D(google.purchaseToken);
+				}
 
-		AppleInAppPurchaseReceipt apple = productReceipt as AppleInAppPurchaseReceipt;
-		if (null != apple) {
-		SgpLog.D(apple.originalTransactionIdentifier);
-		SgpLog.D(apple.subscriptionExpirationDate);
-		SgpLog.D(apple.cancellationDate);
-		SgpLog.D(apple.quantity);
-		}
-		}
-		} catch (IAPSecurityException) {
-		SgpLog.D("Invalid receipt, not unlocking content");
-		return PurchaseProcessingResult.Pending;
-		}
+				AppleInAppPurchaseReceipt apple = productReceipt as AppleInAppPurchaseReceipt;
+				if (null != apple) {
+					MyLog.D(apple.originalTransactionIdentifier);
+					MyLog.D(apple.subscriptionExpirationDate);
+					MyLog.D(apple.cancellationDate);
+					MyLog.D(apple.quantity);
+				}
+				}
+			} catch (IAPSecurityException) {
+				MyLog.D("Invalid receipt, not unlocking content");
+				return PurchaseProcessingResult.Pending;
+			}
 		}
 		#endif
 

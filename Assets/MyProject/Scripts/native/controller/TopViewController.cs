@@ -11,7 +11,7 @@ public class TopViewController : MonoBehaviour {
 	private MyIAPHelper m_IAPHelper;
 	private MyAdManager m_AdManager;
 
-	private MySoundManager sound;
+	private MySoundManager m_Sound;
 
 	public void Awake()
 	{
@@ -60,31 +60,31 @@ public class TopViewController : MonoBehaviour {
 		if (GetMovieButton() != null) 
 		{
 			GetMovieButton().onClick.AddListener(() => {
-				if (null == sound) {
-					sound = new MySoundManager();
+				if (null == m_Sound) {
+					m_Sound = GameObject.Find("SoundObject").GetComponent<MySoundManager>();
 				}
-				if (null != sound) {
-					sound.playSound1();
+				if (null != m_Sound) {
+					m_Sound.playSound1();
 					MyLog.I("playSound1");
 				} else {
 					MyLog.I("playSound1 null");
 				}
 				//				// 動画再生
-				Handheld.PlayFullScreenMovie ("opmv", Color.black, FullScreenMovieControlMode.CancelOnInput);
+				// Handheld.PlayFullScreenMovie ("opmv", Color.black, FullScreenMovieControlMode.CancelOnInput);
 			});
 		}
 		if (GetSoundButton() != null) 
 		{
 			GetSoundButton().onClick.AddListener(() => {
-				//				if (null == sound) {
-				//					sound = GameObject.Find("SoundObject").GetComponent<MySound>();
-				//				}
-				//				if (null != sound) {
-				//					sound.playSound2();
-				//					MyLog.I("playSound2");
-				//				} else {
-				//					MyLog.I("playSound2 null");
-				//				}
+				if (null == m_Sound) {
+					m_Sound = GameObject.Find("SoundObject").GetComponent<MySoundManager>();
+				}
+				if (null != m_Sound) {
+					m_Sound.playSound2();
+					MyLog.I("playSound2");
+				} else {
+					MyLog.I("playSound2 null");
+				}
 			});
 		}
 	}
@@ -120,7 +120,7 @@ public class TopViewController : MonoBehaviour {
 
 	private Button GetFacebookButton()
 	{
-		MyLog.D("FacebookButton");
+		MyLog.D("GetFacebookButton");
 		return GameObject.Find("FacebookButton").GetComponent<Button>();
 	}
 

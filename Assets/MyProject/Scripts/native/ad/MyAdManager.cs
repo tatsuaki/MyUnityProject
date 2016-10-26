@@ -26,7 +26,6 @@ public class MyAdManager : MonoBehaviour {
 	public TJPlacement offerwallPlacement;
 
 	// Facebook
-	private const int DpiScalingFactor = 160;
 	private string facebookStatus = "Ready";
 	private string facebookLastResponse = string.Empty;
 

@@ -40,7 +40,7 @@ public class MyLogEditor : EditorWindow
     void OnGUI()
     {
         BeginWindows();
-		MyLog.DrawLogWindow(new Rect(0, 0, position.width, position.height), true);
+		MyLog.DrawLogWindow(new Rect(0, 0, position.width * 2, position.height), true);
         EndWindows();
     }
 }
