@@ -31,7 +31,8 @@ public class TopViewController : MonoBehaviour {
 		{
 			GetStartButton().onClick.AddListener(() => {
 				// webView
-				MyHttpRequestManager http = gameObject.AddComponent<MyHttpRequestManager>();
+				// MyHttpRequestManager http = gameObject.AddComponent<MyHttpRequestManager>();
+				gameObject.AddComponent<MyHttpRequestManager>();
 			});
 		}
 

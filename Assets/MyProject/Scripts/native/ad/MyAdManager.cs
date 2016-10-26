@@ -53,6 +53,7 @@ public class MyAdManager : MonoBehaviour {
 		// FB init
 		FB.Init(this.OnInitComplete, this.OnHideUnity);
 		facebookStatus = "FB.Init() called with " + FB.AppId;
+		MyLog.D("Facebook = " + facebookStatus);
 	}
 
 	#region Tapjoy
