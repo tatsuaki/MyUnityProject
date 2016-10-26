@@ -22,7 +22,6 @@ public class MyAdManager : MonoBehaviour {
 	private static MyAdManager mInstance;
 
 	// Tapjoy
-	private const string TAPJOY_KEY = "tacbdTYnTN6S-PdFYa2DewECk4qemAOI04tBG1L0u0BEEavbWgknW1hXfdrP";
 	public TJPlacement offerwallPlacement;
 
 	// Facebook
@@ -43,16 +42,26 @@ public class MyAdManager : MonoBehaviour {
 			return mInstance;
 		}
 	}
+
 	private void Initialize() {
 		if (!Tapjoy.IsConnected) {
-			Tapjoy.Connect(TAPJOY_KEY);
+			Tapjoy.Connect(MyConfig.TAPJOY_KEY);
 			MyLog.D("Start to Tapjoy.Connect");
 		}
 
 		// FB init
-		FB.Init(this.OnInitComplete, this.OnHideUnity);
-		facebookStatus = "FB.Init() called with " + FB.AppId;
-		MyLog.D("Facebook = " + facebookStatus);
+		if (FB.IsInitialized) {
+			FB.ActivateApp();
+		} else {
+			//Handle FB.Init
+			FB.Init( () => {
+				FB.ActivateApp();
+				MyLog.D("Facebook ActivateApp");
+			});
+		}
+//		FB.Init(this.OnInitComplete, this.OnHideUnity);
+//		facebookStatus = "FB.Init() called with " + FB.AppId;
+//		MyLog.D("Facebook = " + facebookStatus);	
 	}
 
 	#region Tapjoy
@@ -73,7 +82,7 @@ public class MyAdManager : MonoBehaviour {
 				//Code to handle situation where content is not ready goes here
 			}
 		} else {
-			Tapjoy.Connect(TAPJOY_KEY);
+			Tapjoy.Connect(MyConfig.TAPJOY_KEY);
 			MyLog.W("Tapjoy.IsConnected false");
 		}
 	}
@@ -89,6 +98,7 @@ public class MyAdManager : MonoBehaviour {
 		TJPlacement.OnPurchaseRequest -= HandleOnPurchaseRequest;
 		TJPlacement.OnRewardRequest -= HandleOnRewardRequest;
 	}
+	#endregion
 
 	#region Placement Delegate Handlers
 	public void HandlePlacementRequestSuccess(TJPlacement placement) {
@@ -133,7 +143,6 @@ public class MyAdManager : MonoBehaviour {
 		request.Completed();
 	}
 	#endregion
-	#endregion
 
 	#region Facebook
 	private void OnInitComplete()
@@ -166,6 +175,7 @@ public class MyAdManager : MonoBehaviour {
 			CallFBLogin();
 			facebookStatus = "Login called";
 		}
+		MyLog.W("FacebookStatus = " + facebookStatus);
 	}
 
 	private void CallFBLogin()
@@ -188,7 +198,6 @@ public class MyAdManager : MonoBehaviour {
 			MyLog.I(facebookLastResponse);
 			return;
 		}
-
 		// this.LastResponseTexture = null;
 
 		// Some platforms return the empty string instead of null.
@@ -217,7 +226,7 @@ public class MyAdManager : MonoBehaviour {
 
 	public static void EndPurchase(string id)
 	{
-		MyLog.I("SgpAdManager EndPurchase");
+		MyLog.I("MyAdManager EndPurchase");
 		// 広告SDK関連処理
 		Tapjoy.TrackPurchase(id, "JPY", (double)(200), null);
 
@@ -227,13 +236,23 @@ public class MyAdManager : MonoBehaviour {
 		//		adjustEvent.addPartnerParameter("key", "value");
 		//		adjustEvent.addPartnerParameter("foo", "bar");
 		//		Adjust.trackEvent(adjustEvent);
+
+		// TODO FaceBook
+		Dictionary<string, object> iapParameters = new Dictionary<string, object>();
+		iapParameters["product"] = id;
+		FB.LogPurchase((long)(200), "JPY", iapParameters);
+	}
+
+	public void toFacebookEvent() {
+		MyLog.I("toFacebookEvent");
+		FB.LogAppEvent(AppEventName.CompletedRegistration, 200, null);
 	}
 
 	public void OnStart()
 	{
-		MyLog.I("SgpAdManager OnStart");
+		MyLog.I("MyAdManager OnStart");
 		// Adjust
-		AdjustConfig adjustConfig = new AdjustConfig("7b596f75722041707020546f6b656e7d", AdjustEnvironment.Sandbox);
+		AdjustConfig adjustConfig = new AdjustConfig(MyConfig.ADJUST_TOKEN, AdjustEnvironment.Sandbox);
 		adjustConfig.setLogLevel(AdjustLogLevel.Verbose);
 		Adjust.start(adjustConfig);
 	}
@@ -249,8 +268,8 @@ public class MyAdManager : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start() {MyLog.I("SgpAdManager Start");}
+	void Start() {MyLog.I("MyAdManager Start");}
 
 	// Update is called once per frame
-	void Update() {MyLog.I("SgpAdManager Update");}
+	void Update() {MyLog.I("MyAdManager Update");}
 }

@@ -25,13 +25,6 @@ public class MyIAPHelper : MonoBehaviour, IStoreListener {
 
 	public static FinishPurchase finishPurchaseEvent;
 
-	public const string API_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBC" +
-		"gKCAQEAgsEWa7cTQ4kjPwj8N0FpdZdOy1FfHwSjvltG8mMOmCitlDp9YFqSUQCvp" +
-		"vn3gYhomRhuHNkFe9kcz6Y2bfo1frkMryD2Vzppr7kuc+9GuLjdO3R8bMFAyoPKr" +
-		"UP8ucl4ZRCo3ESlbOLHUP+dXgaK1LdmGvj6GNODlCSomwCpyjrmMIx+SvaXLgrMB" +
-		"UMtqghJhV7aF+PNfRGCclACNIixePOqaDBahwBK7/e8kVK5s6J2xVl5fcknXz0Tc" +
-		"uoaPPsgefhrxxwXyknUtBDaM3MF+gzLA/fqpBTTVfPRzwkDr7M3nIS6mZ7k+vxMY" +
-		"vSjkzf50mUBLub/x2NfJhJNBqzZfQIDAQAB";
 	public bool m_PurchaseInProgress;
 
 	// Unity IAP objects 
@@ -69,7 +62,7 @@ public class MyIAPHelper : MonoBehaviour, IStoreListener {
 		// This enables the Microsoft IAP simulator for local testing.
 		// You would remove this before building your release package.
 		builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = true;
-		builder.Configure<IGooglePlayConfiguration>().SetPublicKey(API_KEY);
+		builder.Configure<IGooglePlayConfiguration>().SetPublicKey(MyConfig.API_KEY);
 
 		builder.AddProduct("100.gold.coins", ProductType.Consumable, new IDs {
 			{"com.tatuaki.unity.01", GooglePlay.Name}, });
@@ -209,6 +202,8 @@ public class MyIAPHelper : MonoBehaviour, IStoreListener {
 		///  rD7S0ScZJjIv8vQZxWY49rmKHGN4BGxJls5h+RnxKoz3arXzMPf4Z0UN5x1PYv9Q3JUxk7Fhy15CaI39ikjt1CiRAr9293jOLV7fI
 		///  EX5JbIavbosAZsCtFTlToJtiawYbj3OcOzpCPt3QXeKrmgE5fwfmyd3Sex7FyNrCQ==\"}"}
 
+
+		// TODO 価格取得
 		finishPurchaseEvent = TopViewController.FinishPurchaseEvent;
 		finishPurchaseEvent(e.purchasedProduct.definition.id, null);
 

@@ -9,6 +9,10 @@ public class MySoundManager : MonoBehaviour {
 
 	private AudioSource audioSource;
 
+	void Start() {
+		MyLog.I("MySoundManager Start");
+		audioSource = gameObject.GetComponent<AudioSource>();
+	}
 	void Update () {
 		//指定のキーが押されたら音声ファイルの再生をする
 		if(Input.GetKeyDown(KeyCode.K)) {
@@ -20,13 +24,13 @@ public class MySoundManager : MonoBehaviour {
 	}
 
 	public void playSound1() {
-		audioSource = getAudioSource();
+		MyLog.I("playSound1");
 		audioSource.clip = sound01;
 		audioSource.PlayOneShot(sound01);
 	}
 
 	public void playSound2() {
-		audioSource = getAudioSource();
+		MyLog.I("playSound2");
 		audioSource.clip = sound02;
 		audioSource.PlayOneShot(sound02);
 		// GetComponent<AudioSource>().PlayOneShot(sound02);

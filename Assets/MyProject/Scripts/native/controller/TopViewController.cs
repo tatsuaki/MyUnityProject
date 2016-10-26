@@ -60,6 +60,7 @@ public class TopViewController : MonoBehaviour {
 		if (GetMovieButton() != null) 
 		{
 			GetMovieButton().onClick.AddListener(() => {
+				MyLog.I("click Movie");
 				if (null == m_Sound) {
 					m_Sound = GameObject.Find("SoundObject").GetComponent<MySoundManager>();
 				}
@@ -76,6 +77,7 @@ public class TopViewController : MonoBehaviour {
 		if (GetSoundButton() != null) 
 		{
 			GetSoundButton().onClick.AddListener(() => {
+				MyLog.I("click Sound");
 				if (null == m_Sound) {
 					m_Sound = GameObject.Find("SoundObject").GetComponent<MySoundManager>();
 				}
@@ -85,6 +87,7 @@ public class TopViewController : MonoBehaviour {
 				} else {
 					MyLog.I("playSound2 null");
 				}
+				m_AdManager.toFacebookEvent();
 			});
 		}
 	}
