@@ -15,6 +15,7 @@ public class TopViewController : MonoBehaviour {
 
 	private AndroidPlugin m_AndroidPluguin;
 
+	private int tempValue = 0;
 
 	public void Awake()
 	{
@@ -115,6 +116,27 @@ public class TopViewController : MonoBehaviour {
 				// Native
 			});
 		}
+		if (GetChangeButton() != null) 
+		{
+			GetChangeButton().onClick.AddListener(() => {
+				MyLog.I("click GetChangeButton");
+				if (null == m_AndroidPluguin) {
+					m_AndroidPluguin = gameObject.AddComponent<AndroidPlugin>();
+					MyLog.I("add AndroidPlugin");
+				}
+				Button button = GetChangeButton();
+				Text text = button.GetComponentInChildren<Text>();
+
+				if (tempValue == 0) {
+					tempValue = 3;
+				}
+				int after = m_AndroidPluguin.ChangeNative("ChangeValue", tempValue);
+				text.text = "after = " + after;
+				tempValue = after;
+				MyLog.I("Top after = " + after);
+				// Native
+			});
+		}
 	}
 
 	public void Start()
@@ -176,6 +198,11 @@ public class TopViewController : MonoBehaviour {
 	{
 		MyLog.D("GetNativeButton");
 		return GameObject.Find("NativeButton").GetComponent<Button>();
+	}
+	private Button GetChangeButton()
+	{
+		MyLog.D("GetChangeButton");
+		return GameObject.Find("ChangeButton").GetComponent<Button>();
 	}
 	void OnGUI () {
 		// Plane plane = GetLogPlane();

@@ -3,9 +3,11 @@ package com.tatuaki.androidutil;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.widget.Toast;
 
 public class NativePlugin {
+    private static  final String TAG = NativePlugin.class.getSimpleName();
 
     static public void ShowMessage(final Context context, String title, String message, String positiveMessage, String NeutralMessage, String negativeMessage, final String showMessage) {
 
@@ -34,5 +36,12 @@ public class NativePlugin {
 
     static public void ShowToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public int ChangeValue(int before) {
+        Log.w(TAG, "ChangeValue " + before);
+        int after = before * 3;
+        Log.w(TAG, "ChangeValue after " + after);
+        return after;
     }
 }
