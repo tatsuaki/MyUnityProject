@@ -17,4 +17,8 @@ public class MyConfig : MonoBehaviour {
 
 	// Adjust
 	public const string ADJUST_TOKEN = "7b596f75722041707020546f6b656e7d";
+
+	public const string MAIL_ADRESS       = "test.unity.kin@gmail.com";
+	public const string NEW_LINE_STRING   = "\n";
+	public const string CAUTION_STATEMENT = "---------以下の内容はそのままで---------" + NEW_LINE_STRING;
 }
