@@ -13,6 +13,9 @@ public class TopViewController : MonoBehaviour {
 
 	private MySoundManager m_Sound;
 
+	private AndroidPlugin m_AndroidPluguin;
+
+
 	public void Awake()
 	{
 		MyLog.D("TopViewController Awake start");
@@ -100,6 +103,20 @@ public class TopViewController : MonoBehaviour {
 				mail.OpenMailer();
 			});
 		}
+		if (GetNativeButton() != null) 
+		{
+			GetNativeButton().onClick.AddListener(() => {
+				MyLog.I("click GetNativeButton");
+				if (null == m_AndroidPluguin) {
+					m_AndroidPluguin = gameObject.AddComponent<AndroidPlugin>();
+					MyLog.I("add AndroidPlugin");
+				}
+				// ShowDialog(string method, string title, string message, 
+				// string positiveMS, string neutralMS, string negativeMS, string showMS) {
+				m_AndroidPluguin.ShowDialog("ShowMessage", "NativeDialog", "Select", "Toast", "Neutoral", "no", "Android");
+				// Native
+			});
+		}
 	}
 
 	public void Start()
@@ -156,6 +173,11 @@ public class TopViewController : MonoBehaviour {
 	{
 		MyLog.D("GetMailButton");
 		return GameObject.Find("MailButton").GetComponent<Button>();
+	}
+	private Button GetNativeButton()
+	{
+		MyLog.D("GetNativeButton");
+		return GameObject.Find("NativeButton").GetComponent<Button>();
 	}
 	void OnGUI () {
 		// Plane plane = GetLogPlane();
