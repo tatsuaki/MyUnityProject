@@ -97,8 +97,6 @@ public class TopViewController : MonoBehaviour {
 		{
 			GetMailButton().onClick.AddListener(() => {
 				MyLog.I("click MailButton");
-//				GameObject.Find("SoundObject").GetComponent<MyMailer>();
-//				gameObject.AddComponent<MyMailer>();
 				MyMailer mail = new MyMailer();
 				mail.OpenMailer();
 			});

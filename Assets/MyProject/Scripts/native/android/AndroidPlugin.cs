@@ -12,12 +12,12 @@ public class AndroidPlugin : MonoBehaviour {
 	}
 
 	public void ShowDialog(string method, string title, string message, 
-		                   string positiveMS, string neutralMS, string negativeMS, string showMS) {
+		                   string okMS, string nMS, string noMS, string showMS) {
 		MyLog.I("ShowDialog method = " + method + " title = " + title + " message = " + message);
-		MyLog.I("positiveMS = " + positiveMS + " neutralMS = " + neutralMS + " negativeMS = " + negativeMS + " showMS " + showMS);
+		MyLog.I("OKMS = " + okMS + " nMS = " + nMS + " noMS = " + noMS + " showMS " + showMS);
 		#if UNITY_ANDROID
 		// Javaのオブジェクトを作成
-		AndroidJavaClass nativePlugin = new AndroidJavaClass ("com.tatuaki.androidplugin.NativePlugin");
+		AndroidJavaClass nativePlugin = new AndroidJavaClass ("com.tatuaki.androidutil.NativePlugin");
 
 		// Context(Activity)オブジェクトを取得する
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"); 
@@ -34,9 +34,9 @@ public class AndroidPlugin : MonoBehaviour {
 				context,
 				title,
 				message,
-				positiveMS,
-				neutralMS,
-				negativeMS,
+				okMS,
+				nMS,
+				noMS,
 				showMS
 			);
 		}));
