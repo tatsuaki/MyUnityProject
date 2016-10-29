@@ -12,12 +12,6 @@ using System.Linq;
 /// </summary>
 public static class ConstantsClassCreator
 {
-//	string Extension.SCRIPT = ".cs"
-//	string DirectoryPath.AUTO_CREATING_CONSTANTS =  "Assets/Scripts/Constants/AutoCreating/"
-
-    private const string SCRIPT  = ".cs";
-    private const string AUTO_CREATING_CONSTANTS       = "Assets/Scripts/Constants/AutoCreating/";
-
 	//無効な文字を管理する配列
 	private static readonly string[] INVALUD_CHARS =
 	{
@@ -60,7 +54,7 @@ public static class ConstantsClassCreator
 			typeName = FLOAT_NAME;
 		}
 		else{
-			Debug.Log (className + SCRIPT +"の作成に失敗しました.想定外の型" + typeof(T).Name  + "が入力されました");
+			Debug.Log (className + Extension.SCRIPT +"の作成に失敗しました.想定外の型" + typeof(T).Name  + "が入力されました");
 			return;
 		}
 
@@ -117,7 +111,7 @@ public static class ConstantsClassCreator
 		builder.AppendLine ("}");
 
 		//書き出し、ファイル名はクラス名.cs
-		string exportPath = DirectoryPath.AUTO_CREATING_CONSTANTS + className + SCRIPT;
+		string exportPath = DirectoryPath.AUTO_CREATING_CONSTANTS + className + Extension.SCRIPT;
 
 		//書き出し先のディレクトリが無ければ作成
 		string directoryName = Path.GetDirectoryName (exportPath);
@@ -128,7 +122,7 @@ public static class ConstantsClassCreator
 		File.WriteAllText (exportPath, builder.ToString (), Encoding.UTF8);
 		AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
 
-		Debug.Log (className + SCRIPT + "の作成が完了しました");
+		Debug.Log (className + Extension.SCRIPT + "の作成が完了しました");
 	}
 
 	/// <summary>

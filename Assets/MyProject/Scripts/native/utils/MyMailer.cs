@@ -7,13 +7,10 @@ using System.Text;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class MyMailer {
-	string PRODUCT_NAME = "PRODUCT_NAME";
-	string BUNDLE_VERSION = "BUNDLE_VERSION"; 
 	//メール
-	private const string MAIL_ADRESS       = "kan.kikuchi.000@gmail.com";
+	private const string MAIL_ADRESS       = "kin.000@gmail.com";
 	private const string NEW_LINE_STRING   = "\n";
 	private const string CAUTION_STATEMENT = "---------以下の内容はそのままで---------" + NEW_LINE_STRING;
 
@@ -23,7 +20,7 @@ public class MyMailer {
 	public void OpenMailer(){
 		// PlayerSettingsValue
 		//タイトルはアプリ名
-		string subject = PRODUCT_NAME;
+		string subject = PlayerSettingsValue.PRODUCT_NAME;
 
 		//本文は端末名、OS、アプリバージョン、言語
 		string deviceName = SystemInfo.deviceModel;
@@ -34,7 +31,7 @@ public class MyMailer {
 		string body = NEW_LINE_STRING + NEW_LINE_STRING + CAUTION_STATEMENT + NEW_LINE_STRING;
 		body += "Device   : " + deviceName                             + NEW_LINE_STRING;
 		body += "OS       : " + SystemInfo.operatingSystem             + NEW_LINE_STRING;
-		body += "Ver      : " + BUNDLE_VERSION     + NEW_LINE_STRING;
+		body += "Ver      : " + PlayerSettingsValue.BUNDLE_VERSION     + NEW_LINE_STRING;
 		body += "Language : " + Application.systemLanguage.ToString () + NEW_LINE_STRING;
 
 		//エスケープ処理

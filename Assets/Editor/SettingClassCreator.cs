@@ -45,20 +45,19 @@ public class SettingClassCreator : AssetPostprocessorEx {
 		ConstantsClassCreator.Create ("TagName", "タグ名を定数で管理するクラス", tagDic);
 
 		//シーン
-		Dictionary<string, string> scenesNameDic = new Dictionary<string, string>();
-		Dictionary<string, int>    scenesNoDic   = new Dictionary<string, int>();
+//		Dictionary<string, string> scenesNameDic = new Dictionary<string, string>();
+//		Dictionary<string, int>    scenesNoDic   = new Dictionary<string, int>();
+//
+//		for(int i = 0; i < EditorBuildSettings.scenes.Count(); i++){
+//			string sceneName = Path.GetFileNameWithoutExtension (EditorBuildSettings.scenes [i].path);
+//			scenesNameDic [sceneName] = sceneName;
+//			scenesNoDic   [sceneName] = i;
+//		}
+//
+//		CreateSceneData (scenesNoDic);
 
-		for(int i = 0; i < EditorBuildSettings.scenes.Count(); i++){
-			string sceneName = Path.GetFileNameWithoutExtension (EditorBuildSettings.scenes [i].path);
-			scenesNameDic [sceneName] = sceneName;
-			scenesNoDic   [sceneName] = i;
-		}
-
-		CreateSceneData (scenesNoDic);
-
-		ConstantsClassCreator.Create ("SceneName", "シーン名を定数で管理するクラス",  scenesNameDic);
-		ConstantsClassCreator.Create ("SceneNo"  , "シーン番号を定数で管理するクラス", scenesNoDic);
-
+//		ConstantsClassCreator.Create ("SceneName", "シーン名を定数で管理するクラス",  scenesNameDic);
+//		ConstantsClassCreator.Create ("SceneNo"  , "シーン番号を定数で管理するクラス", scenesNoDic);
 
 		//レイヤーとレイヤーマスク
 		Dictionary<string, int> layerNoDic     = InternalEditorUtility.layers.ToDictionary(layer => layer, layer => LayerMask.NameToLayer (layer));
@@ -112,6 +111,5 @@ public class SettingClassCreator : AssetPostprocessorEx {
 		Type internalEditorUtilityType = typeof(InternalEditorUtility);
 		PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
 		return (string[])sortingLayersProperty.GetValue(null, new object[0]);
-
 	}
 }

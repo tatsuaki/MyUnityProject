@@ -90,6 +90,16 @@ public class TopViewController : MonoBehaviour {
 				m_AdManager.toFacebookEvent();
 			});
 		}
+		if (GetMailButton() != null) 
+		{
+			GetMailButton().onClick.AddListener(() => {
+				MyLog.I("click MailButton");
+//				GameObject.Find("SoundObject").GetComponent<MyMailer>();
+//				gameObject.AddComponent<MyMailer>();
+				MyMailer mail = new MyMailer();
+				mail.OpenMailer();
+			});
+		}
 	}
 
 	public void Start()
@@ -142,7 +152,11 @@ public class TopViewController : MonoBehaviour {
 		MyLog.D("GetSoundButton");
 		return GameObject.Find("SoundButton").GetComponent<Button>();
 	}
-
+	private Button GetMailButton()
+	{
+		MyLog.D("GetMailButton");
+		return GameObject.Find("MailButton").GetComponent<Button>();
+	}
 	void OnGUI () {
 		// Plane plane = GetLogPlane();
 		MyLog.DrawLogWindow(new Rect(10, 10, 800, 1000));

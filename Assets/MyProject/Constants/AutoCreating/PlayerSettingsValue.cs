@@ -3,6 +3,6 @@
 /// </summary>
 public static class PlayerSettingsValue
 {
-	  public const string PRODUCT_NAME   = "MyProjects";
+	  public const string PRODUCT_NAME   = "MyProject_base";
 	  public const string BUNDLE_VERSION = "1.1.0";
 }
