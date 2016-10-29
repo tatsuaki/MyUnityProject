@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "676882104063",
+    "firebase_url": "https://unity-push-da5a6.firebaseio.com",
+    "project_id": "unity-push-da5a6",
+    "storage_bucket": "unity-push-da5a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676882104063:android:ddfb163b249e0741",
+        "android_client_info": {
+          "package_name": "com.tatuaki.unity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676882104063-jb03otjs2i4ujunuf3aioel228q08i9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tatuaki.unity",
+            "certificate_hash": "B166B16CE5A2395A0003E55C08AB7131A425E691"
+          }
+        },
+        {
+          "client_id": "676882104063-jscms1hfeker9u4s3emtpk81r8gfa70o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9NiV9HyUi76I_bWrfz_vY1v0yEmzovWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676882104063-jscms1hfeker9u4s3emtpk81r8gfa70o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

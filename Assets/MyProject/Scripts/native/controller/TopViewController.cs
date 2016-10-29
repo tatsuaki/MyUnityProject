@@ -137,6 +137,21 @@ public class TopViewController : MonoBehaviour {
 				// Native
 			});
 		}
+		if (GetPushButton() != null) 
+		{
+			if (Application.platform == RuntimePlatform.Android) {
+				GetPushButton().onClick.AddListener(() => {
+					MyLog.I("click GetPushButton");
+					if (null == m_AndroidPluguin) {
+						m_AndroidPluguin = gameObject.AddComponent<AndroidPlugin>();
+						MyLog.I("add AndroidPlugin");
+					}
+					string token = m_AndroidPluguin.GetToken("GetAndroidToken");
+					MyLog.I("GetPushButton token = " + token);
+					// Native
+				});
+			}
+		}
 	}
 
 	public void Start()
@@ -203,6 +218,11 @@ public class TopViewController : MonoBehaviour {
 	{
 		MyLog.D("GetChangeButton");
 		return GameObject.Find("ChangeButton").GetComponent<Button>();
+	}
+	private Button GetPushButton()
+	{
+		MyLog.D("GetPushButton");
+		return GameObject.Find("PushButton").GetComponent<Button>();
 	}
 	void OnGUI () {
 		// Plane plane = GetLogPlane();

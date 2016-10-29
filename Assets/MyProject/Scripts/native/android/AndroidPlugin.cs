@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class AndroidPlugin : MonoBehaviour {
-
-	private const string NATIVE_CLASS   = "com.tatuaki.androidutil.NativePlugin";
+	private const string TAG = "AndroidPlugin";
+	private const string NATIVE_CLASS   = "com.tatuaki.unity.utils.NativePlugin";
 	private const string NATIVE_CONTEXT = "com.unity3d.player.UnityPlayer";
 
 	// Javaオブジェクト取得(static)
@@ -67,12 +67,27 @@ public class AndroidPlugin : MonoBehaviour {
 		int after = 0;
 		#if UNITY_ANDROID
 			AndroidJavaObject nativePlugin = getNativeObject();
-			after = nativePlugin.Call<int> (method, before);
+			after = nativePlugin.Call<int>(method, before);
 			MyLog.I("ChangeNative after = " + after);
 		#endif
 		return after;
 	}
-	
+
+	public string GetToken(string method) {
+		MyLog.I(TAG + " GetToken method = " + method);
+		string tokens = null;
+		#if UNITY_ANDROID
+		AndroidJavaClass nativePlugin = getStaticNativeClass();
+		AndroidJavaObject context  = getContext();
+
+		context.Call ("runOnUiThread", new AndroidJavaRunnable(() => {
+			tokens = nativePlugin.CallStatic<string> (method, context, context);
+			MyLog.W(TAG + " GetToken tokens = " + tokens);
+		}));
+		#endif
+		return tokens;
+	}
+
 	public string getVersionName() 
 	{
 		AndroidJavaObject context = getApplicationContext();
