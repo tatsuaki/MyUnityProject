@@ -11,8 +11,6 @@ android {
         exclude 'META-INF/LICENSE'
     }
 
-    //lintオプション
-    //abortOnError falseにすることでlintエラーが発生してもエラーとならないようにする。
     lintOptions {
         abortOnError false
     }
@@ -39,23 +37,67 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.firebase:firebase-core:9.6.1'
+
+//    compile ('com.google.firebase:firebase-iid:9.6.1') {
+//        exclude module: 'play-services-base'
+//        exclude module: 'support-v4'
+//        exclude module: 'support-annotations'
+//    }
+    // compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-messaging:9.6.1'
-    compile 'com.google.firebase:firebase-analytics:9.6.1'
-    compile 'com.google.firebase:firebase-crash:9.6.1'
-
-    // compile 'com.google.android.gms:play-services:9.6.1'
-
-    // compile 'com.android.support:multidex:1.0.0'
-    // compile 'com.google.android.gms:play-services-gcm:9.6.1'
+    compile 'com.google.firebase:firebase-iid:9.6.1'
+//    compile 'com.google.firebase:firebase-analytics:9.6.1'
+//    compile 'com.google.firebase:firebase-crash:9.6.1'
 }
-
 // gradlew exportAar
-task exportAar(type: Copy, dependsOn: assemble)  {
+task exportAar(type: Copy, dependsOn: assemble) {
     from('build/outputs/aar/')
     into('../../../Assets/Plugins/Android/')
     include('AndroidUtil-release.aar')
     rename('AndroidUtil-release.aar', 'AndroidPlugin.aar')
 }
+
+//task auau() {
+//    from configurations.compile.each { lib ->
+//        println lib.path
+//        // it.isDirectory() ? it : zipTree(it)
+//    }
+//}
+
+//jar {
+//    manifest {
+//        attributes 'Implementation-Title': 'Mychael Style Tools', 'Implementation-Version': 1.0
+//        attributes "Main-Class" : "com.mychaelstyle.tools.Main"
+//    }
+//    from configurations.compile.each { it.isDirectory() ? it : zipTree(it)
+//    }
+//}
+
+// gradlew copyLibs
+//task copyLibs << {
+//    configurations.compile.each { lib ->
+//        if (lib.path.startsWith("${projectDir}/libs")) {
+//            // libs内のものはコピー対象外
+//            return
+//        }
+//        copy {
+//            from(lib.path)
+//            into('../../../Assets/Plugins/Android')
+//        }
+//    }
+//}
+
+//task copyLibs << {
+//    configurations.compile.each { lib ->
+//        if (lib.path.startsWith("${projectDir}/libs")) {
+//            // libs内のものはコピー対象外
+//            return
+//        }
+//        copy {
+//            from lib.path
+//            into '../../../Assets/Plugins/Android'
+//        }
+//    }
+//}
 
 apply plugin: 'com.google.gms.google-services'

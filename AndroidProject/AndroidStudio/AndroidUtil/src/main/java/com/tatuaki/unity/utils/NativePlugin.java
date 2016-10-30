@@ -110,12 +110,7 @@ public class NativePlugin {
 
         Log.w(TAG, "GetAndroidToken to MyPushManager GetToken");
         if (null != mContext) {
-            mActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    tokens = MyPushManager.GetToken();
-                }
-            });
+            tokens = MyPushManager.GetToken();
         }
         return tokens;
     }
