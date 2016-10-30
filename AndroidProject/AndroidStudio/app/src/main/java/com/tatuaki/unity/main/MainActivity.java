@@ -16,9 +16,9 @@ public class MainActivity extends Activity {
         setContentView(com.tatuaki.unity.main.R.layout.activity_main);
 
         // TODO デバッグ
-        NativePlugin.setContext(this.getApplicationContext());
+        NativePlugin.init(this.getApplicationContext());
         NativePlugin.setActivity(this);
-        String token = NativePlugin.GetAndroidToken(getApplicationContext(), this);
+        String token = NativePlugin.GetAndroidToken(getApplicationContext());
         Log.w(TAG, "GetAndroidToken token = " + token);
         Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
     }

@@ -24,6 +24,13 @@ public class TopViewController : MonoBehaviour {
 		m_IAPHelper = MyIAPHelper.Instance;
 		m_AdManager = MyAdManager.Instance;
 
+		#if UNITY_ANDROID
+		if (null == m_AndroidPluguin) {
+			m_AndroidPluguin = gameObject.AddComponent<AndroidPlugin>();
+			MyLog.I("add AndroidPlugin");
+		}
+		m_AndroidPluguin.inits();
+		#endif
 		InitUI();
 	}
 

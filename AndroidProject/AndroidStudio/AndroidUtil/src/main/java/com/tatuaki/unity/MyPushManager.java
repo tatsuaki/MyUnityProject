@@ -2,7 +2,6 @@ package com.tatuaki.unity;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -22,7 +21,10 @@ public class MyPushManager {
 
     // NoClassDefFoundError: Failed resolution of: Lcom/google/firebase/iid/FirebaseInstanceId;
     public static String GetToken() {
-        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "GetToken start");
+        FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
+        Log.d(TAG, "GetToken FirebaseInstanceId.getInstance");
+        String token = firebaseInstanceId.getToken();
 
         Log.d(TAG, "GetToken = " + token);
         return token;

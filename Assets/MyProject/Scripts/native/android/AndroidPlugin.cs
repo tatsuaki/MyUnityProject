@@ -33,6 +33,26 @@ public class AndroidPlugin : MonoBehaviour {
 		return getContext().Call<AndroidJavaObject>("getApplicationContext");
 	}
 
+	public void inits() {
+		if (Application.platform == RuntimePlatform.Android) {
+			MyLog.I("inits");
+			AndroidJavaClass nativePlugin = getStaticNativeClass();
+			AndroidJavaObject context  = getContext();
+
+			// static public void ShowMessage
+			// (final Context context, String title, String message, String positiveMessage, 
+			// String NeutralMessage, String negativeMessage, final String showMessage)
+			// AndroidのUIスレッドで動かす
+			context.Call ("runOnUiThread", new AndroidJavaRunnable(() => {
+				// ダイアログ表示のstaticメソッドを呼び出す
+				nativePlugin.CallStatic (
+					"init",
+					context
+				);
+			}));
+		}
+	}
+
 	public void ShowDialog(string method, string title, string message, 
 		                   string okMS, string nMS, string noMS, string showMS) {
 		MyLog.I("ShowDialog method = " + method + " title = " + title + " message = " + message);
@@ -81,7 +101,7 @@ public class AndroidPlugin : MonoBehaviour {
 		AndroidJavaObject context  = getContext();
 
 		context.Call ("runOnUiThread", new AndroidJavaRunnable(() => {
-			tokens = nativePlugin.CallStatic<string> (method, context, context);
+			tokens = nativePlugin.CallStatic<string> (method, context);
 			MyLog.W(TAG + " GetToken tokens = " + tokens);
 		}));
 		#endif
